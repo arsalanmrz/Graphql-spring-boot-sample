@@ -1,0 +1,53 @@
+type User {
+	login: String,
+	id: ID!,
+	name: String!,
+	roles: [Role]
+}
+
+type Role {
+	id: ID!,
+	name: String!
+}
+
+input RoleRequest {
+	id: ID,
+	name: String
+}
+
+input UserRequest {
+	id: ID,
+	name: String,
+	login: String,
+	roles: [RoleRequest]
+}
+
+type Query {
+	usersByName(name: String): [User]
+	usersByLogin(login: String): [User]
+	getUser(id: ID!): User
+
+	role(id: ID!): Role
+	roles: [Role]
+}
+
+type Mutation {
+	createUser(user: UserRequest): User
+	editUser(user: UserRequest): User
+	deleteUser(id: ID!): Boolean
+
+	createRole(role: RoleRequest): Role
+	editRole(role: RoleRequest): Role
+	deleteRole(id: ID!): Boolean
+}
+#
+#type RoleQuery {
+#	role(id: ID!): Role
+#	roles: [Role]
+#}
+#
+#type RoleMutation {
+#	createRole(role: RoleRequest): Role
+#	editRole(role: RoleRequest): Role
+#	deleteRole(id: ID!): Boolean
+#}
